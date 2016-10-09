@@ -7,6 +7,7 @@ def main():
     python_version = sys.version
     print(__file__)
     print (python_version)
+    pd.DataFrame()
     pass
 
 if __name__ == '__main__':
