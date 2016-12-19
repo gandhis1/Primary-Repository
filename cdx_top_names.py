@@ -3,10 +3,12 @@ Author: Siddhartha Gandhi
 Date: 2016-12-18
 Description: Creates a table of the top traded CDX names.
 """
-import bs4
 import re
-import requests
+
+import bs4
 import pandas as pd
+import requests
+
 
 def parse(url, page_name):
     """Given a DTCC URL and the name, parses the HTML table."""
