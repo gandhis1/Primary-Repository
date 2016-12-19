@@ -34,3 +34,4 @@ data = (pd.concat([parse(source + '/'.join((link.get('href').split('/')[2:])),
                          'Average Number of Trades per Day'],
                      ascending=False)
         .reset_index(drop=True))
+print(data)
