@@ -1,7 +1,7 @@
 """
 Author: Siddhartha Gandhi
 Date: 2016-12-18
-Description: Creates a table of the top traded CDX names.
+Description: Creates a table of the top traded CDS names.
 """
 import re
 
