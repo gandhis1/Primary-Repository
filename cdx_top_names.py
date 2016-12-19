@@ -29,7 +29,7 @@ soup = bs4.BeautifulSoup(requests.get(source).text, "html.parser")
 links = soup.find_all('a', href=re.compile('top-1000-single-names-'))
 data = (pd.concat([parse(source + '/'.join((link.get('href').split('/')[2:])),
                          link.contents[0])
-                   for link in links[:2]])
+                   for link in links])
         .sort_values(by=['Average Daily Notional (USD)',
                          'Average Number of Trades per Day'],
                      ascending=False)
