@@ -3,7 +3,7 @@
 #include <initializer_list>
 #include <exception>
 #include <random>
-#include <algorithm>
+
 
 template<typename T>
 class Node {
