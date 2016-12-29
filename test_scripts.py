@@ -11,8 +11,19 @@ from numba import jit
 
 from typing import List
 
+@jit
+def reverse_integer(x):
+    from math import ceil, log
+    powers = list(range(1, ceil(log(x, 10)) + 1))
+    new_number = 0
+    for i, j in zip(powers, powers[::-1]):
+        divisor = 10 ** i
+        subtract = 10 ** (i - 1)
+        multiplier = 10 ** (j - 1)
+        new_number += ((x % divisor) // subtract) * multiplier
+    return new_number
 
-@jit(nopython=True)
+@jit
 def bubble_sort(raw_list: List[int]):
     for i in range(0, len(raw_list)):
         is_sorted = True
@@ -24,30 +35,36 @@ def bubble_sort(raw_list: List[int]):
                 raw_list[j], raw_list[j + 1] = b, a
         if is_sorted:
             break
-    return raw_list 
+    return raw_list
 
-@jit(nopython=True)
-def quick_sort(raw_list):
-    def quick_sort_recursive(raw_list, start, end):
-        if start < end:
-            partition = int(raw_list / 2)
-            quick_sort_recursive()
-            quick_sort_recursive()  
-    pass # TODO - implement quick-sort
-
-# TODO - test concurrent futures and asyncIO
+def quick_sort(seq):
+    if seq: # if given list (or tuple) with one ordered item or more: 
+        pivot = seq[0]
+        # below will be less than:
+        below = [i for i in seq[1:] if i < pivot] 
+        # above will be greater than or equal to:
+        above = [i for i in seq[1:] if i >= pivot]
+        return quick_sort(below) + [pivot] + quick_sort(above)
+    else: 
+        return seq # empty list
 
 rand_list = [randrange(0, 5000) for i in range(0, 5000)]
-t_bubble_sort = timeit(stmt="bubble_sort(rand_list)",
-                        setup="from __main__ import bubble_sort, rand_list",
-                        number=1000)
-t_python_sort = timeit(stmt="sorted(rand_list)",
-                        setup="from __main__ import rand_list",
-                        number=1000)
-print("Python sort: {0}".format(t_python_sort))
-print("{0} {1} ({2}x {3})".format("Bubble sort: ",
-                                    t_bubble_sort,
-                                    round(t_bubble_sort / t_python_sort, 1)),
-                                    "slower")
-sorting_equivalence = (bubble_sort(rand_list) == sorted(rand_list))
-print("Equivalent: {}".format(str(sorting_equivalence)))
+def sorting_test():
+    t_bubble_sort = timeit(stmt="bubble_sort(rand_list)",
+                           setup="from __main__ import bubble_sort, rand_list",
+                           number=100)
+    t_quick_sort = timeit(stmt="quick_sort(rand_list)",
+                          setup="from __main__ import quick_sort, rand_list",
+                          number=100)
+    t_python_sort = timeit(stmt="sorted(rand_list)",
+                           setup="from __main__ import rand_list",
+                           number=100)
+    
+    print("Python sort: {0}".format(t_python_sort))
+    
+    for sort_time, sort_name in zip([t_bubble_sort, t_quick_sort],
+                                    ['Bubble Sort', 'Quick Sort']):
+        print("{0} {1} ({2}x {3})".format(sort_name + ": ", sort_time,
+                                          round(t_bubble_sort / sort_time, 1),
+                                          "slower"))
+

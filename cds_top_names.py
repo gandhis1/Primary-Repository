@@ -25,7 +25,7 @@ def parse(url, page_name):
     return table
 
 source = r'http://www.dtcc.com/repository-otc-data/'
-soup = bs4.BeautifulSoup(requests.get(source).text, "html.parser")
+soup = bs4.BeautifulSoup(requests.get(source).text, "lxml")
 links = soup.find_all('a', href=re.compile('top-1000-single-names-'))
 data = (pd.concat([parse(source + '/'.join((link.get('href').split('/')[2:])),
                          link.contents[0])
@@ -33,5 +33,4 @@ data = (pd.concat([parse(source + '/'.join((link.get('href').split('/')[2:])),
         .sort_values(by=['Average Daily Notional (USD)',
                          'Average Number of Trades per Day'],
                      ascending=False)
-        .reset_index(drop=True))
-print(data)
+        .set_index(["Reference Entity", "Period"]))
