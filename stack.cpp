@@ -3,6 +3,7 @@
 #include <initializer_list>
 #include <exception>
 #include <random>
+#include <iterator>
 
 
 template<typename T>
@@ -23,6 +24,13 @@ class Stack {
                 current->data = val;
                 current->next = std::make_shared<Node<T>>();
                 current = current->next;
+            }
+        }
+        template <typename iter>
+        Stack(iter begin, iter end) {
+            for (auto& element = begin; begin != end; ++begin)
+            {
+                this.push(*element);
             }
         }
         operator[](int&& index) {
