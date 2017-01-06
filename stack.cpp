@@ -78,7 +78,7 @@ class Stack {
 int main() {
     // Generate random numbers
     std::mt19937 gen(999);
-    std::uniform_real_distribution<double> dist(0.0, 100000.0);
+    auto dist = std::uniform_int_distribution<int>(0, 100000);
 
     Stack<int> seq;
     for (int i = 0; i < 1000000; ++i){
