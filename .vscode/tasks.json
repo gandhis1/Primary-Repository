@@ -1,8 +1,0 @@
-{
-    "command": "g++",
-    "isShellCommand": true,
-    // compiles and links with debugger information
-    "args": ["-g", "-o", "${fileDirname}\\bin\\${fileBasenameNoExtension}.exe", "${file}"],
-    "echoCommand": true,
-    "showOutput": "silent"
-}
