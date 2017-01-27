@@ -49,5 +49,8 @@ Temporary Items
 # Stupid kernel files
 kernel-*.json
 
+# Anything in vscode folder
+.vscode
+
 # Binary folder
 bin/
