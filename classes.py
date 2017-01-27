@@ -14,6 +14,8 @@ class Transportation:
 
 class Storage:
     items = []
+    __variable__ = 0
+
     def __init__(self):
         print("Initializing new storage")
 
@@ -23,12 +25,3 @@ class Storage:
 
     def get_item(self, item):
         self.items.pop(self.items.index(item))
-
-class Car(Transportation, Storage):
-    def __init__(self):
-        print("Initializing new Car")
-    pass
-
-test = Car()
-test.store_item("test")
-test.get_item("test")
