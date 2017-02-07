@@ -4,14 +4,30 @@ statistical datasets, or IDE features.
 """
 from random import randrange
 from timeit import timeit
+from itertools import groupby
 
 from numba import jit
 
-from typing import List
+from typing import List, Tuple
+
+
+def collapse_prepayment_string(pp: List[Tuple[int, float]]):
+    """
+    Given a prepayment string, aggregate consecutive prepayment 
+    provisions by adding their months if they have the same penalty.
+    """
+    return [(sum(map(lambda x: x[0], g)), key)
+            for key, g in groupby(pp, lambda x: x[1])
+            if key is not None]
 
 
 @jit
 def reverse_integer(x):
+    """
+    Given an integer x, returns the integer, reversed. 
+    While one can do int(str(x)[::-1]), this implementation
+    was chosen to use strictly numerical methods.
+    """
     from math import ceil, log
     powers = list(range(1, ceil(log(x, 10)) + 1))
     new_number = 0
@@ -94,7 +110,9 @@ rand_list = [randrange(0, 5000) for i in range(0, 5000)]
 
 
 def main():
-    sorting_test()
+    pp = [(12, 0.02), (16, 0.02), (6, 0.015), 
+          (12, 0.012), (6, 0.012), (36, 0.01)]
+    print(collapse_prepayment_string(pp))
 
 
 if __name__ == "__main__":
