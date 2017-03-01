@@ -11,7 +11,7 @@ from numba import jit
 from typing import List, Tuple
 
 
-def collapse_prepayment_string(pp: List[Tuple[int, float]]):
+def collapse_pp_string(pp: List[Tuple[int, float]]) -> List[Tuple[int, float]]:
     """
     Given a prepayment string, aggregate consecutive prepayment 
     provisions by adding their months if they have the same penalty.
@@ -112,7 +112,7 @@ rand_list = [randrange(0, 5000) for i in range(0, 5000)]
 def main():
     pp = [(12, 0.02), (16, 0.02), (6, 0.015), 
           (12, 0.012), (6, 0.012), (36, 0.01)]
-    print(collapse_prepayment_string(pp))
+    print(collapse_pp_stringing(pp))
 
 
 if __name__ == "__main__":
