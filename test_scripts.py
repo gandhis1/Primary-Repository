@@ -112,7 +112,7 @@ rand_list = [randrange(0, 5000) for i in range(0, 5000)]
 def main():
     pp = [(12, 0.02), (16, 0.02), (6, 0.015), 
           (12, 0.012), (6, 0.012), (36, 0.01)]
-    print(collapse_pp_stringing(pp))
+    print(collapse_pp_string(pp))
 
 
 if __name__ == "__main__":
